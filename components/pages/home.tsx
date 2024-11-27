@@ -108,7 +108,9 @@ export default function Home() {
         <div className='w-full flex flex-col items-start lg:items-end pr-5 absolute left-2 bottom-[30vh] lg:bottom-10 lg:right-20 z-[99999]'>
           <Theme/>
         </div>
-        <SidebarTrigger/>
+        <div className='absolute top-2 ml-2 z-[99999]'>
+          <SidebarTrigger/>
+        </div>
         <div className='lg:hidden absolute top-0 right-0 p-2 z-[9999]'>
           <Logo/>
         </div>
