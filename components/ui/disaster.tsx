@@ -11,8 +11,8 @@ import { Select } from './select'
 interface DisasterProps {
   disaster: DisasterType,
   selectedDisaster: DisasterType | null, 
-  onSelect: any, 
-  onDeselect?: any
+  onSelect: () => void, 
+  onDeselect: () => void
 }
 
 export function Disaster(

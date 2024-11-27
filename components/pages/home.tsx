@@ -30,7 +30,7 @@ export default function Home() {
         const response = await axios.get('/api/disasters');
         setDisasters(response.data.DisasterDeclarationsSummaries)
       } catch (error) {
-        console.error('Error fetching disasters:');
+        console.error('Error fetching disasters:', error);
       }
     };
     getDisasters()
