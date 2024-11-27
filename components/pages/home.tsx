@@ -1,6 +1,6 @@
 // app/page.tsx
 'use client'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 
 import Link from 'next/link'
@@ -55,10 +55,11 @@ export default function Home() {
       }
   },[selectedState, disasters])
 
+
   return (
     <SidebarProvider>
       <Sidebar className='bg-background/75 backdrop-blur'>
-        <SidebarContent className='py-2 px-2 bg-background/80 backdrop-blur overflow-y-hidden'>
+        <SidebarContent  className='py-2 px-2 bg-background/80 backdrop-blur overflow-y-hidden'>
           <SidebarGroup className='w-full flex flex-col space-y-1'>
             <div className='hidden lg:flex justify-start items-center absolute top-2 left-2 right-2'>
               <Logo/>
@@ -105,10 +106,7 @@ export default function Home() {
         </SidebarContent>
       </Sidebar>
       <main className='w-full bg-transparent'>
-        <div className='w-full flex flex-col items-start lg:items-end pr-5 absolute left-2 bottom-[30vh] lg:bottom-10 lg:right-20 z-[99999]'>
-          <Theme/>
-        </div>
-        <div className='absolute top-2 ml-2 z-[99999]'>
+        <div className='absolute lg:top-2 mt-2 ml-2 z-[99999]'>
           <SidebarTrigger/>
         </div>
         <div className='lg:hidden absolute top-0 right-0 p-2 z-[9999]'>
@@ -127,7 +125,10 @@ export default function Home() {
             />
           }
         </div>
-        <div className='absolute right-2 bottom-[30vh] lg:hidden'>
+        <div className='w-full flex flex-col items-start lg:items-end pr-5 absolute left-2 top-12 lg:bottom-10 lg:right-20 z-[99999]'>
+          <Theme/>
+        </div>
+        <div className='absolute left-10 top-2 lg:hidden z-[9999]'>
           <Clock/>
         </div>
       </main>

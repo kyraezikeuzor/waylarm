@@ -5,6 +5,8 @@ import "./globals.css";
 
 const inter = Inter({ subsets: ['latin'] })
 
+
+
 export const metadata: Metadata = {
   title: "Waylarm | Up-to-date info for ongoing natural disasters.",
   description: "We provide up-to-date info for ongoing natural disasters.",

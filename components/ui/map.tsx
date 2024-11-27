@@ -116,7 +116,6 @@ export const MapComponent: React.FC<MapComponentProps> = ({
             // Attach click event to marker
             marker.getElement().addEventListener('click', () => {
               setSelectedDisaster(disaster);
-              console.log(disaster, 'BEYONCE');
             });
   
             markersRef.current.push(marker); // Store the marker in the ref

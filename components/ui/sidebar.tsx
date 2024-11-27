@@ -175,7 +175,7 @@ const Sidebar = React.forwardRef<
     },
     ref
   ) => {
-    const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
+    const { open, setOpen, isMobile, state, openMobile, setOpenMobile } = useSidebar()
 
     if (collapsible === "none") {
       return (
@@ -194,7 +194,7 @@ const Sidebar = React.forwardRef<
 
     if (isMobile) {
       return (
-        <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
+        <Sheet open={open} onOpenChange={setOpen} {...props}>
           {openMobile &&
             <div className="fixed bottom-0 left-0 w-full h-[30vh] z-[9999] overflow-y-auto">
               {children}
@@ -274,8 +274,6 @@ const SidebarTrigger = React.forwardRef<
   React.ComponentProps<typeof Button>
 >(({ className, onClick, ...props }, ref) => {
   const { toggleSidebar } = useSidebar()
-
-  
 
   return (
     <Button
