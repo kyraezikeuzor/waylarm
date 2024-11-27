@@ -71,10 +71,10 @@ export const Popup =  (
     })
   
     return (
-        <div className='w-80 lg:w-1/4 ease-in-out backdrop-blur bg-white/75 py-2 absolute z-[99999] top-20 right-20 rounded-xl shadow-2xl border border-gray-200'>
+        <div className='w-80 lg:w-1/4 ease-in-out backdrop-blur bg-background/75 py-2 absolute z-[99999] top-20 right-20 rounded-xl shadow-2xl border border-border'>
             <div className='relative flex flex-col space-y-2 '>
-                <span onClick={()=>onClickOut()} className='absolute top-1 right-2 bg-gray-100 w-8 h-8 rounded-full p-2 flex flex-col items-center cursor-pointer'>
-                    <X className='text-gray-600'/>
+                <span onClick={()=>onClickOut()} className='bg-background absolute top-1 right-2 w-6 h-6 rounded-full p-1 flex flex-col items-center cursor-pointer'>
+                    <X className='text-foreground'/>
                 </span>
                 <div className='flex flex-row flex-wrap space-x-2 items-center px-3'>
                     <span className='text-lg font-semibold'>
@@ -89,7 +89,7 @@ export const Popup =  (
                           disaster.incidentType.toLowerCase() === 'earthquake' ? 'bg-brown-100' : 
                           disaster.incidentType.toLowerCase() === 'tropical storm' ? 'bg-indigo-300' :
                           ''} 
-                          text-xs font-medium w-fit py-[1px] px-4 rounded-full
+                          text-xs font-medium w-fit py-[1px] px-4 rounded-full text-black
                       `}
                     >
                       {disaster.incidentType}

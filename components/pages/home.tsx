@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
+import Link from 'next/link'
+
 import { DisasterType } from '@/types'
 
 import { Rss } from 'lucide-react'
@@ -16,12 +18,12 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { Logo } from '@/components/ui/logo'
 import { Popup } from '@/components/ui/popup'
 import { Separator } from '@/components/ui/separator'
+import { Theme } from '@/components/ui/theme'
 
 import { states } from '@/data/states'
 
 export default function Home() {
   const [selectedState, setSelectedState] = useState("")
-
   const [disasters, setDisasters] = useState<DisasterType[]>([])
 
   useEffect(() => {
@@ -55,10 +57,10 @@ export default function Home() {
 
   return (
     <SidebarProvider>
-      <Sidebar>
-        <SidebarContent className='py-2 px-2 bg-white/80 backdrop-blur overflow-y-hidden'>
+      <Sidebar className='bg-background/75 backdrop-blur'>
+        <SidebarContent className='py-2 px-2 bg-background/80 backdrop-blur overflow-y-hidden'>
           <SidebarGroup className='w-full flex flex-col space-y-1'>
-            <div className='hidden lg:flex justify-between items-center absolute top-2 left-2 right-2'>
+            <div className='hidden lg:flex justify-start items-center absolute top-2 left-2 right-2'>
               <Logo/>
             </div>
             <br className='hidden lg:block'/>
@@ -69,12 +71,15 @@ export default function Home() {
                 Live Active Natural Disasters 
               </Heading>
             </div>
-            <div>
+            <div className='flex flex-col'>
               {disasters && disasters.length > 0 && (
-                <p className='text-gray-600 mb-2'>
+                <p className='text-gray-600'>
                   Last Updated: {new Date(disasters[0].lastRefresh).toDateString()}
                 </p>
               )}
+              <p className='text-sm text-gray-400'>
+                Disaster data received from <Link className='underline underline-gray-400' href='https://www.fema.gov/about/reports-and-data/openfema'>FEMA</Link>, the United States Federal Emergency Management Agency.
+              </p>
             </div>
           </SidebarGroup>
           <Separator/>
@@ -100,23 +105,26 @@ export default function Home() {
         </SidebarContent>
       </Sidebar>
       <main className='w-full bg-transparent'>
-        <div className='flex flex-row justify-between p-[1px]'>
-          <SidebarTrigger/>
-            <div className='md:hidden flex justify-between items-center mr-2'>
-              <Logo/>
-            </div>
+        <div className='w-full flex flex-col items-start lg:items-end pr-5 absolute left-2 bottom-[30vh] lg:bottom-10 lg:right-20 z-[99999]'>
+          <Theme/>
+        </div>
+        <SidebarTrigger/>
+        <div className='lg:hidden absolute top-0 right-0 p-2 z-[9999]'>
+          <Logo/>
         </div>
         <MapComponent 
           disasters={disasters} 
           selectedDisaster={selectedDisaster || disasters[0]}
           setSelectedDisaster={setSelectedDisaster}  
         />
-        {selectedDisaster != null &&
-          <Popup
-            onClickOut={()=>setSelectedDisaster(null)}
-            disaster={selectedDisaster}
-          />
-        }
+        <div>
+          {selectedDisaster != null &&
+            <Popup
+              onClickOut={()=>setSelectedDisaster(null)}
+              disaster={selectedDisaster}
+            />
+          }
+        </div>
         <div className='absolute right-2 bottom-[30vh] lg:hidden'>
           <Clock/>
         </div>

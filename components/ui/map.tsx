@@ -101,7 +101,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
               .setPopup(
                 new maplibregl.Popup({ offset: 25 })
                   .setHTML(`
-                    <div class='w-full h-full'>
+                    <div class='w-full h-full bg-transparent text-black'>
                         <div class='flex flex-col'>
                             <span class="text-sm font-medium">${formatDeclarationTitle(disaster.declarationTitle)}</span>
                             <div class='flex flex-col '>

@@ -27,7 +27,7 @@ export const Select = (
 
     return (
         <div 
-        className={`w-full h-full hover:cursor-pointer hover:bg-gray-100
+        className={`w-full h-full hover:cursor-pointer hover:opacity-75
             ${lodash.isEqual(selectedDisaster, disaster) == true && selectedClassName}
             ${lodash.isEqual(selectedDisaster, disaster) == false && ''}`
         } 

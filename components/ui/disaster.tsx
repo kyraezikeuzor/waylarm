@@ -25,9 +25,9 @@ export function Disaster(
     selectedDisaster={selectedDisaster}
     onSelect={onSelect}
     onDeselect={onDeselect}
-    selectedClassName='border-[3px] py-1 border-blue-400 rounded-xl shadow-sm bg-white hover:bg-white'
+    selectedClassName='border-[3px] py-1 border-blue-400 rounded-xl shadow-sm bg-background'
     >
-        <div className='h-fit flex flex-row items-center gap-3 px-2 py-2 border-b border-gray-300 '>
+        <div className='h-fit flex flex-row items-center gap-3 px-2 py-2 border-b border-border '>
             <div>
                 <span className=''>{disaster.state}</span>
             </div>
