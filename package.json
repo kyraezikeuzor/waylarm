@@ -26,8 +26,8 @@
     "maplibre-gl": "^4.7.1",
     "maplibre-react-components": "^0.1.9",
     "next": "15.0.3",
-    "react": "19.0.0-rc-66855b96-20241106",
-    "react-dom": "19.0.0-rc-66855b96-20241106",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
     "topojson-client": "^3.1.0"
