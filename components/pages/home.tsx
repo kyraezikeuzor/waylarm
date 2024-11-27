@@ -5,6 +5,7 @@ import axios from 'axios'
 
 import { DisasterType } from '@/types'
 
+import { Rss } from 'lucide-react'
 import { SidebarProvider, SidebarTrigger, Sidebar, SidebarContent, SidebarGroup } from "@/components/ui/sidebar"
 import { Heading } from '@/components/ui/heading'
 import { Disaster } from '@/components/ui/disaster'
@@ -57,16 +58,19 @@ export default function Home() {
   return (
     <SidebarProvider>
       <Sidebar>
-        <SidebarContent className='px-2 backdrop-blur bg-white/50 overflow-y-hidden'>
+        <SidebarContent className='py-2 px-2 bg-white/80 backdrop-blur overflow-y-hidden'>
           <SidebarGroup className='w-full flex flex-col space-y-1'>
-            <div className='flex justify-between items-center absolute top-2 left-2 right-2'>
+            <div className='hidden lg:flex justify-between items-center absolute top-2 left-2 right-2'>
               <Logo/>
             </div>
-            <br/>
-            <br/>
-            <Heading as='h1' className='text-2xl font-bold'>
-                {disasters.length} Disasters Happening Now
-            </Heading>
+            <br className='hidden lg:block'/>
+            <br className='hidden lg:block'/>
+            <div className='flex flex-col gap-2'>
+              <span className='w-fit bg-blue-500 text-white rounded-xl px-3 text-sm'>Live Updates</span>
+              <Heading as='h1' className='flex flex-row gap-2 items-center text-2xl font-bold'>
+                {disasters.length} Ongoing Disasters <Rss className='w-5 h-5 text-red-500'/>
+              </Heading>
+            </div>
             <div>
               {disasters && disasters.length > 0 && (
                 <p className='text-gray-600 mb-2'>
@@ -99,7 +103,12 @@ export default function Home() {
       <main className='w-full bg-transparent'>
         <div className='flex flex-row justify-between p-[1px]'>
           <SidebarTrigger/>
-          <Clock />
+          <div className='flex flex-row'>
+            <Clock/>
+            <div className='md:hidden flex justify-between items-center'>
+              <Logo/>
+            </div>
+          </div>
         </div>
         <MapComponent 
           disasters={disasters} 

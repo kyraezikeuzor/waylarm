@@ -68,7 +68,7 @@ const SidebarProvider = React.forwardRef<
     ref
   ) => {
     const isMobile = useIsMobile()
-    const [openMobile, setOpenMobile] = React.useState(false)
+    const [openMobile, setOpenMobile] = React.useState(true)
 
     // This is the internal state of the sidebar.
     // We use openProp and setOpenProp for control from outside the component.
@@ -181,7 +181,7 @@ const Sidebar = React.forwardRef<
       return (
         <div
           className={cn(
-            "flex h-full w-[--sidebar-width] flex-col bg-background text-sidebar-foreground",
+            "flex h-full w-[--sidebar-width] flex-col bg-white backdrop-blur text-sidebar-foreground",
             className
           )}
           ref={ref}
@@ -195,6 +195,17 @@ const Sidebar = React.forwardRef<
     if (isMobile) {
       return (
         <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
+          {openMobile &&
+            <div className="fixed bottom-0 left-0 w-full h-[30vh] z-[9999] overflow-y-auto">
+              {children}
+            </div>
+          }
+        </Sheet>
+      )
+    }
+
+    /*
+    <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
           <SheetContent
             data-sidebar="sidebar"
             data-mobile="true"
@@ -209,8 +220,7 @@ const Sidebar = React.forwardRef<
             <div className="flex h-full w-full flex-col">{children}</div>
           </SheetContent>
         </Sheet>
-      )
-    }
+     */
 
     return (
       <div
@@ -264,6 +274,8 @@ const SidebarTrigger = React.forwardRef<
   React.ComponentProps<typeof Button>
 >(({ className, onClick, ...props }, ref) => {
   const { toggleSidebar } = useSidebar()
+
+  
 
   return (
     <Button

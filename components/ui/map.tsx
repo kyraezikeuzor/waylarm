@@ -69,13 +69,13 @@ export const MapComponent: React.FC<MapComponentProps> = ({
     const map = new maplibregl.Map({
       container: mapContainer.current,
       style: `https://api.maptiler.com/maps/streets/style.json?key=${apiKey}`,
-      center: [-77.0365428552031, 38.89503687307], // Consistent center
+      center: [-95.36153769473093, 29.76790572283977], // Consistent center
       zoom: 4
     });
   
     mapInstance.current = map;
   
-    if (onFlyToReady) {
+    /*if (onFlyToReady) {
       const flyTo = async (disaster: DisasterType) => {
         try {
           const coordinates = await getGeocode(`${disaster.designatedArea}, ${disaster.state}`);
@@ -92,7 +92,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
       };
   
       onFlyToReady(flyTo);
-    }
+    }*/
   
     map.on('load', async () => {
       // Add markers for disasters

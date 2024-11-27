@@ -71,7 +71,7 @@ export const Popup =  (
     })
   
     return (
-        <div className='w-1/2 lg:w-1/4 ease-in-out backdrop-blur bg-white/75 py-2 absolute z-[99999] top-20 right-20 rounded-xl shadow-2xl border border-gray-200'>
+        <div className='w-80 lg:w-1/4 ease-in-out backdrop-blur bg-white/75 py-2 absolute z-[99999] top-20 right-20 rounded-xl shadow-2xl border border-gray-200'>
             <div className='relative flex flex-col space-y-2 '>
                 <span onClick={()=>onClickOut()} className='absolute top-1 right-2 bg-gray-100 w-8 h-8 rounded-full p-2 flex flex-col items-center cursor-pointer'>
                     <X className='text-gray-600'/>
