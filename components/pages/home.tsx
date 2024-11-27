@@ -16,13 +16,11 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { Logo } from '@/components/ui/logo'
 import { Popup } from '@/components/ui/popup'
 
-import { getGeocode } from '@/lib/utils'
 import { states } from '@/data/states'
 
 export default function Home() {
   const [selectedState, setSelectedState] = useState("")
   const [disasters, setDisasters] = useState<DisasterType[]>([])
-  const [flyToDisaster, setFlyToDisaster] = useState<((disaster: DisasterType) => void) | null>(null)
 
   useEffect(() => {
     const getDisasters = async () => {
@@ -41,19 +39,6 @@ export default function Home() {
   const handleDisasterSelect = (disaster: DisasterType) => {
     setSelectedDisaster(disaster)
   }
-
-  useEffect(() => {
-    const fetchGeocode = async () => {
-      try {
-        const geocode = await getGeocode('Utah (County)');
-        console.log(geocode,'GEOCODE');
-      } catch (error) {
-        console.error('Error fetching geocode:', error);
-      }
-    };
-    fetchGeocode();
-  }, []); // Add dependency array if needed
-
 
   return (
     <SidebarProvider>
@@ -85,7 +70,7 @@ export default function Home() {
             />
           </SidebarGroup>
           <SidebarGroup className='w-full h-full flex flex-col'>
-            <Heading as='h2'>Latest</Heading>
+            <Heading as='h2'>Latest</Heading> {selectedState}
             <ScrollArea className='w-full h-full max:h-[600px] flex-col '>
               {disasters?.map((item,index) => (
                 <Disaster 
@@ -112,7 +97,6 @@ export default function Home() {
         </div>
         <MapComponent 
           disasters={disasters} 
-          onFlyToReady={setFlyToDisaster}
           selectedDisaster={selectedDisaster}
           setSelectedDisaster={setSelectedDisaster}  
         />

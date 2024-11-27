@@ -9,6 +9,6 @@ export async function GET() {
         const response = await axios.get(`https://www.fema.gov/api/open/v2/DisasterDeclarationsSummaries?$select=disasterNumber,state,declarationDate,incidentType,declarationTitle,incidentBeginDate,incidentEndDate,disasterCloseoutDate,fipsStateCode,fipsCountyCode,placeCode,designatedArea,incidentId,lastRefresh&$filter=declarationDate gt '${dateStopFormat}'&$orderby=declarationDate desc`);
         return Response.json(response.data);
     } catch (error) {
-        return Response.json({ error: 'Failed to fetch disasters' }, { status: 500 });
+        return Response.json({error}, { status: 500 });
     }
 }

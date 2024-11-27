@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 import axios from 'axios';
 
 export async function GET(request: NextRequest) {
@@ -8,7 +8,6 @@ export async function GET(request: NextRequest) {
     const apiUrl = `https://commons.wikimedia.org/w/api.php?action=query&format=json&pithumbsize=2000&prop=pageimages&generator=search&gsrsearch=${encodeURIComponent(place)}&gsrlimit=10`;
     //http://en.wikipedia.org/w/api.php?action=query&titles=Al-Farabi&prop=pageimages&format=json&pithumbsize=100
 
-    
     const response = await axios(apiUrl, {
         headers: {
             'User-Agent': 'NextJsWikimediaSearch/1.0'
@@ -17,7 +16,8 @@ export async function GET(request: NextRequest) {
 
     const data = response.data
 
-    let images = []
+    /*
+    const images = []
     let image = ''
 
     const pages: any[] = Object.values(data.query.pages)
@@ -45,8 +45,9 @@ export async function GET(request: NextRequest) {
     } else if (images.length > 0) {
         image = images[images.length-1]
     }
+    */
     
-    return Response.json(image);
+    return Response.json(data);
   } catch (error) {
     return Response.json(`${error} Failed to fetch geocode`, { status: 500 });
   }

@@ -9,10 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@floating-ui/react-dom": "^2.1.2",
     "@maptiler/geocoding-control": "^2.0.1",
     "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-popover": "^1.1.2",
+    "@radix-ui/react-popper": "^1.2.0",
     "@radix-ui/react-scroll-area": "^1.2.1",
     "@radix-ui/react-separator": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
@@ -26,7 +28,9 @@
     "maplibre-gl": "^4.7.1",
     "maplibre-react-components": "^0.1.9",
     "next": "15.0.3",
+    "radix-ui": "^1.0.1",
     "react": "^18.3.1",
+    "react-dialog": "^1.0.2",
     "react-dom": "^18.3.1",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
