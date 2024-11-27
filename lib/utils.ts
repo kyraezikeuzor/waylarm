@@ -13,8 +13,6 @@ export function formatDeclarationTitle(title: string) {
 export async function getGeocode(place:string) {
   const geocodeFetchUrl = `/api/geocode?place=${place}`;
   const geocodeFetchResponse = await axios.get(geocodeFetchUrl);
-  const latitude = geocodeFetchResponse.data.lat;
-  const longitude = geocodeFetchResponse.data.lng;
   const geocode = geocodeFetchResponse.data.features[0].geometry.coordinates
 
   return geocode

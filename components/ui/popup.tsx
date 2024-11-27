@@ -27,8 +27,8 @@ export const PopupImage = (
                 } else {
                     setError('No photos available for this location.');
                 }
-            } catch (err:any) {
-                console.error('Error fetching photo:', err, err.message);
+            } catch (error) {
+                console.error('Error fetching photo:', error);
                 setError('No photos available for this location.');
             } finally {
                 setLoading(false);
@@ -56,7 +56,7 @@ export const PopupImage = (
   };
   
 export const Popup =  (
-    {disaster, onClickOut}:{disaster: DisasterType, onClickOut?: any}
+    {disaster, onClickOut}:{disaster: DisasterType, onClickOut: () => void}
   ) => {
 
     const [geocode, setGeocode] = useState()

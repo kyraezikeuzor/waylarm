@@ -9,17 +9,6 @@ import { RMap, RMapContextProvider, useMap } from "maplibre-react-components";
 import { DisasterType } from '@/types';
 import { getGeocode, formatDeclarationTitle } from '@/lib/utils';
 
-// Ensure consistent date formatting
-const formatDate = (date: string | Date) => {
-  if (!date) return 'N/A';
-  const d = new Date(date);
-  return d.toLocaleDateString('en-US', {
-    month: '2-digit',
-    day: '2-digit',
-    year: 'numeric'
-  });
-};
-
 // Color mapping function for incident types
 const getMarkerColor = (incidentType: string): string => {
   switch (incidentType.toLowerCase()) {
@@ -36,8 +25,8 @@ const getMarkerColor = (incidentType: string): string => {
 
 interface MapComponentProps {
   disasters: DisasterType[];
-  selectedDisaster: any,
-  setSelectedDisaster: any,
+  selectedDisaster: DisasterType;
+  setSelectedDisaster: React.Dispatch<React.SetStateAction<DisasterType | null>>;
   onFlyToReady?: (flyTo: (disaster: DisasterType) => void) => void;
 }
 

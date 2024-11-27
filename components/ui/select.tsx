@@ -1,13 +1,12 @@
 'use client'
 import React, { useState, useEffect } from 'react'
-import ReactDOM from 'react-dom';
 import { DisasterType } from '@/types'
 
 import lodash from 'lodash'
 
 export const Select = (    
     {children, disaster, selectedDisaster, onSelect, onDeselect, selectedClassName}:
-    {children?:React.ReactNode, disaster: DisasterType, selectedDisaster: DisasterType | null, onSelect: any, onDeselect?: any, selectedClassName:string}
+    {children?:React.ReactNode, disaster: DisasterType, selectedDisaster: DisasterType | null, onSelect: () => void, onDeselect: () => void, selectedClassName:string}
 ) => {
      
     const [click, setClick] = useState(false)

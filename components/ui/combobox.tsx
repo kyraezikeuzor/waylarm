@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Check, ChevronsUpDown } from "lucide-react"
+import { Check, ChevronsUpDown, SquareMinus } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -18,6 +18,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { Separator } from '@/components/ui/separator'
 
 interface ComboboxProps {
   list: {value:string, label:string}[], 
@@ -38,14 +39,23 @@ export function Combobox({
     defaultValue ? list.find(item => item.value === defaultValue)?.label || "" : ""
   )
 
-  const handleSelect = (selectedItem: {value: string, label: string}) => {
-    setValue(selectedItem.value)
-    setSelectedLabel(selectedItem.label)
-    setOpen(false)
-    
-    // Call the onValueChange callback if provided
-    if (onValueChange) {
-      onValueChange(selectedItem.value)
+  const handleSelect = (selectedItem: {value: string, label: string} | null) => {
+    if (selectedItem) {
+      setValue(selectedItem.value)
+      setSelectedLabel(selectedItem.label)
+      setOpen(false)
+      
+      // Call the onValueChange callback if provided
+      if (onValueChange) {
+        onValueChange(selectedItem.value)
+      }
+    } else {
+      setValue(defaultValue)
+      setSelectedLabel(defaultValue)
+      if (onValueChange) {
+        onValueChange('')
+      }
+
     }
   }
 
@@ -58,14 +68,14 @@ export function Combobox({
           aria-expanded={open}
           className="w-full justify-between"
         >
-          {selectedLabel || `Select ${category}...`}
+          {selectedLabel || `Select ${category}...`} {value}
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[350px] p-0">
         <Command>
           <CommandInput placeholder={`Search ${category}...`} />
-          <CommandList>
+          <CommandList className='h-[200px]'>
             <CommandEmpty>No {category} found.</CommandEmpty>
             <CommandGroup>
               {list.map((item) => (
@@ -84,6 +94,13 @@ export function Combobox({
                 </CommandItem>
               ))}
             </CommandGroup>
+          </CommandList>
+          <Separator/>
+          <CommandList onClick={()=>handleSelect(null)}>
+            <CommandItem>
+              <span className='font-medium py-1'>Clear Selection</span>
+              <SquareMinus/>
+            </CommandItem>
           </CommandList>
         </Command>
       </PopoverContent>

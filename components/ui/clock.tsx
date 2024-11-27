@@ -27,8 +27,8 @@ export const Clock: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-row gap-1 items-center justify-center px-2 text-sm text-gray-600">
-      <ClockIcon className='w-4 h-5'/> <span></span>
+    <div className="flex flex-row gap-1 items-center justify-center px-2 text-xs lg:text-sm text-gray-600">
+      <ClockIcon className='w-4 h-5'/> <span>{currentDateTime.toLocaleString('en-US', dateTimeOptions)}</span>
     </div>
   );
 };

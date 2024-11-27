@@ -9,6 +9,6 @@ export async function GET(request: NextRequest) {
     const response = await axios.get(`https://api.maptiler.com/geocoding/${place}.json?key=${key}`);
     return Response.json(response.data);
   } catch (error) {
-    return Response.json({ error: 'Failed to fetch geocode' }, { status: 500 });
+    return Response.json({error}, { status: 500 });
   }
 }

@@ -15,11 +15,13 @@ import { MapComponent } from '@/components/ui/map'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Logo } from '@/components/ui/logo'
 import { Popup } from '@/components/ui/popup'
+import { Separator } from '@/components/ui/separator'
 
 import { states } from '@/data/states'
 
 export default function Home() {
   const [selectedState, setSelectedState] = useState("")
+
   const [disasters, setDisasters] = useState<DisasterType[]>([])
 
   useEffect(() => {
@@ -27,18 +29,29 @@ export default function Home() {
       try {
         const response = await axios.get('/api/disasters');
         setDisasters(response.data.DisasterDeclarationsSummaries)
-      } catch (error:any) {
-        console.error('Error fetching disasters:', error.message);
+      } catch (error) {
+        console.error('Error fetching disasters:');
       }
     };
     getDisasters()
   }, [])
 
   const [selectedDisaster, setSelectedDisaster] = useState<DisasterType | null>(disasters[0])
-
   const handleDisasterSelect = (disaster: DisasterType) => {
     setSelectedDisaster(disaster)
   }
+
+  const [filteredDisasters, setFilteredDisasters] = useState<DisasterType[]>(disasters)
+
+  useEffect(()=>{
+      if (selectedState) {
+        setFilteredDisasters(disasters.filter((item) => {
+          return item.state === selectedState;
+        }));
+      } else {
+        setFilteredDisasters(disasters)
+      }
+  },[selectedState, disasters])
 
   return (
     <SidebarProvider>
@@ -53,7 +66,7 @@ export default function Home() {
             <div className='flex flex-col gap-2'>
               <span className='flex flex-row items-center gap-1 w-fit bg-blue-500 text-white rounded-xl px-3 text-sm'><Rss className='w-3 h-3 text-white'/> Live Updates</span>
               <Heading as='h1'>
-                {disasters.length} Active Disasters 
+                Live Active Natural Disasters 
               </Heading>
             </div>
             <div>
@@ -63,16 +76,17 @@ export default function Home() {
                 </p>
               )}
             </div>
+          </SidebarGroup>
+          <Separator/>
+          <SidebarGroup className='w-full h-full flex flex-col space-y-1'>
+            <Heading as="h2">Showing {filteredDisasters.length} disaster(s) in {selectedState || "all states"}</Heading>
             <Combobox
               list={states}
               category="state"
               onValueChange={(value) => setSelectedState(value)}
             />
-          </SidebarGroup>
-          <SidebarGroup className='w-full h-full flex flex-col'>
-            <Heading as='h2'>Latest</Heading> {selectedState}
             <ScrollArea className='w-full h-full max:h-[600px] flex-col '>
-              {disasters?.map((item,index) => (
+              {filteredDisasters?.map((item,index) => (
                 <Disaster 
                   key={index}
                   onSelect={()=>{handleDisasterSelect(item)}} 
@@ -88,16 +102,13 @@ export default function Home() {
       <main className='w-full bg-transparent'>
         <div className='flex flex-row justify-between p-[1px]'>
           <SidebarTrigger/>
-          <div className='flex flex-row'>
-            <Clock/>
-            <div className='md:hidden flex justify-between items-center'>
+            <div className='md:hidden flex justify-between items-center mr-2'>
               <Logo/>
             </div>
-          </div>
         </div>
         <MapComponent 
           disasters={disasters} 
-          selectedDisaster={selectedDisaster}
+          selectedDisaster={selectedDisaster || disasters[0]}
           setSelectedDisaster={setSelectedDisaster}  
         />
         {selectedDisaster != null &&
@@ -106,6 +117,9 @@ export default function Home() {
             disaster={selectedDisaster}
           />
         }
+        <div className='absolute right-2 bottom-[30vh] lg:hidden'>
+          <Clock/>
+        </div>
       </main>
     </SidebarProvider>
   );
