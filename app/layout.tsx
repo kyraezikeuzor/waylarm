@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Inter } from 'next/font/google'
+const inter = Inter({ subsets: ['latin'] })
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -25,8 +27,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script src="https://unpkg.com/maplibre-gl@^4.7.1/dist/maplibre-gl.js"></script>
+        <link href="https://unpkg.com/maplibre-gl@^4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={inter.className}
       >
         {children}
       </body>
