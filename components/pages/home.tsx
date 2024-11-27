@@ -66,9 +66,9 @@ export default function Home() {
             <br className='hidden lg:block'/>
             <br className='hidden lg:block'/>
             <div className='flex flex-col gap-2'>
-              <span className='w-fit bg-blue-500 text-white rounded-xl px-3 text-sm'>Live Updates</span>
-              <Heading as='h1' className='flex flex-row gap-2 items-center text-2xl font-bold'>
-                {disasters.length} Ongoing Disasters <Rss className='w-5 h-5 text-red-500'/>
+              <span className='flex flex-row items-center gap-1 w-fit bg-blue-500 text-white rounded-xl px-3 text-sm'><Rss className='w-3 h-3 text-white'/> Live Updates</span>
+              <Heading as='h1'>
+                {disasters.length} Active Disasters 
               </Heading>
             </div>
             <div>
