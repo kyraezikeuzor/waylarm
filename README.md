@@ -1,4 +1,4 @@
-# <img src="/app/favicon" alt="Logo" width="30"> Waylarm
+# <img src="public/waylarm-logo.png" alt="Logo" width="30"> Waylarm: Providing Live, Up-to-Date Disaster Information
 
 **Waylarm** is a web application built with [Next.js](https://nextjs.org), designed to provide users with interactive and real-time disaster response data. It utilizes Maptiler for dynamic map rendering and the OpenFEMA API to access and display federal disaster information.
 
@@ -14,7 +14,7 @@ To run the development server locally, follow these steps:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/waylarm.git
+   git clone https://github.com/kyraezikeuzor/waylarm.git
    cd waylarm
    ```
 
