@@ -109,14 +109,14 @@ export const Popup =  (
                             <span>{new Date(disaster.incidentEndDate).toDateString()}</span>
                         </div>
                     </div>
-                    <hr className='h-16 w-[2px] bg-gray-200'/>
+                    <hr className='h-16 w-[2px] bg-border'/>
                     <div className='w-1/2 flex flex-col gap-1 px-3'>
                         <span className='text-gray-500 text-sm'>Location</span>
                         <span className='font-semibold text-base leading-5'>{disaster.designatedArea}, {disaster.state}</span>
                         <span className='font-semibold text-base leading-5'>{geocode}</span>
                     </div>
                 </div>
-                <hr className='w-full h-1'/>
+                <hr className='w-full h-1 bg-border'/>
                 <div className='w-full flex flex-col gap-1 px-3'>
                     <span className='text-gray-500 text-sm'>Incident Details</span>
                     <div className='w-full flex flex-col text-sm'>
