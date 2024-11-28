@@ -1,4 +1,4 @@
-# <img src="public/waylarm-logo.png" alt="Logo" width="30"> Waylarm: Up-to-date real-time disaster information
+# <img src="public/waylarm-logo.png" alt="Logo" width="30"> Waylarm: Providing Live, Up-to-Date Disaster Information
 
 **Waylarm** is a web application built with [Next.js](https://nextjs.org), designed to provide users with interactive and real-time disaster response data. It utilizes Maptiler for dynamic map rendering and the OpenFEMA API to access and display federal disaster information.
 
