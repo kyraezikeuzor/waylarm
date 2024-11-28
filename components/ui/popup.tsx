@@ -88,6 +88,7 @@ export const Popup =  (
                           disaster.incidentType.toLowerCase() === 'tornado' ? 'bg-purple-100' :
                           disaster.incidentType.toLowerCase() === 'earthquake' ? 'bg-brown-100' : 
                           disaster.incidentType.toLowerCase() === 'tropical storm' ? 'bg-indigo-300' :
+                          disaster.incidentType.toLowerCase() === 'severe storm' ? 'bg-purple-300' :
                           ''} 
                           text-xs font-medium w-fit py-[1px] px-4 rounded-full text-black
                       `}

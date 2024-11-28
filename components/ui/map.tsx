@@ -9,16 +9,20 @@ import { RMap, RMapContextProvider, useMap } from "maplibre-react-components";
 import { DisasterType } from '@/types';
 import { getGeocode, formatDeclarationTitle } from '@/lib/utils';
 
+const mapStyleLight = 'https://api.maptiler.com/maps/streets/style.json'
+const mapStyleDark = 'https://api.maptiler.com/maps/darkmatter/style.json'
+
 // Color mapping function for incident types
 const getMarkerColor = (incidentType: string): string => {
   switch (incidentType.toLowerCase()) {
-    case 'hurricane': return 'blue';
-    case 'fire': return 'orange';
-    case 'flood': return 'light-blue';
-    case 'tornado': return 'purple';
-    case 'earthquake': return 'green';
-    case 'tropical storm': return 'indigo';
+    case 'hurricane': return '#748cb9';
+    case 'fire': return '#ff694f';
+    case 'flood': return '#57c5e3';
+    case 'tornado': return '#c0cdd0';
+    case 'earthquake': return '#32565e';
+    case 'tropical storm': return '#5690ff';
     case 'mud/landslide': return 'brown';
+    case 'severe storm': return '#6169c1'
     default: return '#FFFFFF';
   }
 };
@@ -40,7 +44,23 @@ export const MapComponent: React.FC<MapComponentProps> = ({
   const mapContainer = useRef<HTMLDivElement>(null);
   const mapInstance = useRef<maplibregl.Map | null>(null);
   const markersRef = useRef<maplibregl.Marker[]>([]);
+  const [mapStyle, setMapStyle] = useState<string>('')
+  const [darkModeOn, isDarkModeOn] = useState<boolean>()
+  
+  useEffect(() => {
+    // Ensure this only runs in the client environment
+    if (typeof window !== "undefined") {
+        const isDarkClassApplied = document.documentElement.classList.contains('dark');
+        isDarkModeOn(isDarkClassApplied);
+        console.log(isDarkClassApplied)
+    }
+  }, []);
 
+  useEffect(() => {
+      darkModeOn ? setMapStyle(mapStyleDark) : setMapStyle(mapStyleLight);
+      console.log(darkModeOn);
+  }, [darkModeOn]);
+    
   useEffect(() => {
     setIsClient(true);
   }, []);
@@ -51,37 +71,20 @@ export const MapComponent: React.FC<MapComponentProps> = ({
     // Clear existing markers
     markersRef.current.forEach(marker => marker.remove());
     markersRef.current = [];
+
+    if (!mapContainer.current || !mapStyle) return;
   
     const apiKey = process.env.NEXT_PUBLIC_MAPTILER_API_KEY;
     if (!mapContainer.current || !apiKey) return;
   
     const map = new maplibregl.Map({
       container: mapContainer.current,
-      style: `https://api.maptiler.com/maps/streets/style.json?key=${apiKey}`,
+      style: `${mapStyle}?key=${apiKey}`,
       center: [-95.36153769473093, 29.76790572283977], // Consistent center
       zoom: 4
     });
   
     mapInstance.current = map;
-  
-    /*if (onFlyToReady) {
-      const flyTo = async (disaster: DisasterType) => {
-        try {
-          const coordinates = await getGeocode(`${disaster.designatedArea}, ${disaster.state}`);
-          if (coordinates && map) {
-            map.flyTo({
-              center: coordinates,
-              zoom: 15,
-              essential: true
-            });
-          }
-        } catch (error) {
-          console.error('Error flying to disaster:', error);
-        }
-      };
-  
-      onFlyToReady(flyTo);
-    }*/
   
     map.on('load', async () => {
       // Add markers for disasters
