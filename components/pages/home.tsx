@@ -106,7 +106,7 @@ export default function Home() {
         </SidebarContent>
       </Sidebar>
       <main className='w-full bg-transparent'>
-        <SidebarTrigger/>
+      <SidebarTrigger className='absolute z-[99]' />
         <div className='lg:hidden absolute top-0 right-0 p-2 z-[9999]'>
           <Logo/>
         </div>
@@ -123,10 +123,10 @@ export default function Home() {
             />
           }
         </div>
-        <div className='w-full flex flex-col items-start lg:items-end pr-5 absolute left-2 top-12 lg:top-2 lg:right-18 z-[99999]'>
+        <div className='w-full flex flex-col items-end pr-5 lg:pr-2 absolute left-2 top-12 lg:top-0  z-[99999]'>
           <Theme/>
         </div>
-        <div className='absolute left-10 top-2 lg:hidden z-[9999]'>
+        <div className='absolute right-28 top-3 lg:hidden z-[9999]'>
           <Clock/>
         </div>
       </main>
