@@ -10,7 +10,7 @@ import { DisasterType } from '@/types';
 import { getGeocode, formatDeclarationTitle } from '@/lib/utils';
 
 const mapStyleLight = 'https://api.maptiler.com/maps/streets/style.json'
-const mapStyleDark = 'https://api.maptiler.com/maps/darkmatter/style.json'
+const mapStyleDark = 'https://api.maptiler.com/maps/streets-v2-dark/style.json'
 
 // Color mapping function for incident types
 const getMarkerColor = (incidentType: string): string => {
@@ -44,29 +44,47 @@ export const MapComponent: React.FC<MapComponentProps> = ({
   const mapContainer = useRef<HTMLDivElement>(null);
   const mapInstance = useRef<maplibregl.Map | null>(null);
   const markersRef = useRef<maplibregl.Marker[]>([]);
-  const [mapStyle, setMapStyle] = useState<string>('')
-  const [darkModeOn, isDarkModeOn] = useState<boolean>()
   
-  useEffect(() => {
-    // Ensure this only runs in the client environment
-    if (typeof window !== "undefined") {
-        const isDarkClassApplied = document.documentElement.classList.contains('dark');
-        isDarkModeOn(isDarkClassApplied);
-        console.log(isDarkClassApplied)
-    }
-  }, []);
+  // More robust dark mode detection
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
-  useEffect(() => {
-    if (darkModeOn) {
-      setMapStyle(mapStyleDark)
-    } else if (!darkModeOn) {
-      setMapStyle(mapStyleLight);
-    }
-    console.log(darkModeOn);
-  }, [darkModeOn]);
-    
+  // Ensure client-side rendering
   useEffect(() => {
     setIsClient(true);
+  }, []);
+
+  // Dark mode detection
+  useEffect(() => {
+    // Check for dark mode in multiple ways
+    const checkDarkMode = () => {
+      const htmlElement = document.documentElement;
+      const isDark = 
+        htmlElement.classList.contains('dark') || 
+        window.matchMedia('(prefers-color-scheme: dark)').matches ||
+        htmlElement.getAttribute('data-theme') === 'dark';
+      
+      setIsDarkMode(isDark);
+    };
+
+    // Initial check
+    checkDarkMode();
+
+    // Listen for changes
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    mediaQuery.addEventListener('change', checkDarkMode);
+
+    // Observe class changes
+    const observer = new MutationObserver(checkDarkMode);
+    observer.observe(document.documentElement, { 
+      attributes: true, 
+      attributeFilter: ['class', 'data-theme'] 
+    });
+
+    // Cleanup
+    return () => {
+      mediaQuery.removeEventListener('change', checkDarkMode);
+      observer.disconnect();
+    };
   }, []);
 
   useEffect(() => {
@@ -76,14 +94,14 @@ export const MapComponent: React.FC<MapComponentProps> = ({
     markersRef.current.forEach(marker => marker.remove());
     markersRef.current = [];
 
-    if (!mapContainer.current || !mapStyle) return;
+    if (!mapContainer.current) return;
   
     const apiKey = process.env.NEXT_PUBLIC_MAPTILER_API_KEY;
-    if (!mapContainer.current || !apiKey) return;
+    if (!apiKey) return;
   
     const map = new maplibregl.Map({
       container: mapContainer.current,
-      style: `${mapStyle}?key=${apiKey}`,
+      style: `${isDarkMode ? mapStyleDark : mapStyleLight}?key=${apiKey}`,
       center: [-95.36153769473093, 29.76790572283977], // Consistent center
       zoom: 4
     });
@@ -136,8 +154,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
     return () => {
       map.remove();
     };
-  }, [disasters, onFlyToReady, isClient]);
-  
+  }, [disasters, onFlyToReady, isClient, isDarkMode]);
 
   // Only render on client
   if (!isClient) return null;
