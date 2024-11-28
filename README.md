@@ -14,7 +14,7 @@ To run the development server locally, follow these steps:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/waylarm.git
+   git clone https://github.com/kyraezikeuzor/waylarm.git
    cd waylarm
    ```
 
