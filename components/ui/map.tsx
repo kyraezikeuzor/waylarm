@@ -57,8 +57,12 @@ export const MapComponent: React.FC<MapComponentProps> = ({
   }, []);
 
   useEffect(() => {
-      darkModeOn ? setMapStyle(mapStyleDark) : setMapStyle(mapStyleLight);
-      console.log(darkModeOn);
+    if (darkModeOn) {
+      setMapStyle(mapStyleDark)
+    } else if (!darkModeOn) {
+      setMapStyle(mapStyleLight);
+    }
+    console.log(darkModeOn);
   }, [darkModeOn]);
     
   useEffect(() => {
