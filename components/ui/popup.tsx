@@ -106,7 +106,7 @@ export const Popup =  (
                         <span className='text-gray-500 text-sm'>Disaster Timespan</span>
                         <div className='flex flex-col  text-sm'>
                             <span>{new Date(disaster.incidentBeginDate).toDateString()} -</span>
-                            <span>{new Date(disaster.incidentEndDate).toDateString()}</span>
+                            <span>{disaster.incidentEndDate ? new Date(disaster.incidentEndDate).toDateString() : 'Present Day'}</span>
                         </div>
                     </div>
                     <hr className='h-16 w-[2px] bg-border'/>
