@@ -6,7 +6,7 @@ export function Logo() {
             <div className='bg-blue-500 p-[2.5px] rounded-sm'>
                 <Globe className='text-white w-4 h-4'/>
             </div>
-            <span className="text-sm">Waylarm</span>
+            <span className="text-base font-medium">Waylarm</span>
         </div>
     )
 }

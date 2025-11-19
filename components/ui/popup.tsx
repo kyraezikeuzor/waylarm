@@ -77,7 +77,7 @@ export const Popup =  (
                     <X className='text-foreground'/>
                 </span>
                 <div className='flex flex-row flex-wrap space-x-2 items-center px-3'>
-                    <span className='text-lg font-semibold'>
+                    <span className='text-lg font-semibold leading-6 mb-2'>
                         {formatDeclarationTitle(disaster.declarationTitle)}
                     </span>
                     <span

@@ -38,7 +38,7 @@ export function Disaster(
                         {disaster.incidentType}
                     </span>
                 </span>
-                <span className='font-semibold'>
+                <span className='font-medium leading-6'>
                     {formatDeclarationTitle(disaster.declarationTitle)}
                 </span>
                 <span className='text-sm'>

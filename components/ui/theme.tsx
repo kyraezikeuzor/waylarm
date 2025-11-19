@@ -25,7 +25,7 @@ export const Theme = () => {
     }
     
     return (
-        <div onClick={changeTheme} className='h-7 w-7 p-1 bg-background/75 backdrop-blur z-[9999] flex flex-col items-center justify-center border border-border rounded-full shadow-lg cursor-pointer'>
+        <div onClick={changeTheme} className='h-10 w-10 p-1 bg-background/75 backdrop-blur z-[9999] flex flex-col items-center justify-center border border-border rounded-full shadow-lg cursor-pointer'>
             {showDarkMode ? <Sun /> : <Moon />}
         </div>
     )
